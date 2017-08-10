@@ -14,6 +14,5 @@ setup( name='pcreode',
            'tsne==0.1.3',
            'matplotlib',
            'sklearn',
-           'igraph',
-           'jupyter'],)
+           'igraph'])
 
