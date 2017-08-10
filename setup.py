@@ -1,4 +1,4 @@
-from setuptools import setup
+from distutils.core import setup
 
 setup( name='pcreode',
        version='0.1',
@@ -14,6 +14,7 @@ setup( name='pcreode',
            'tsne==0.1.3',
            'matplotlib',
            'sklearn',
-           'igraph'],
+           'igraph',
+       ],
      )
 
