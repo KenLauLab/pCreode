@@ -15,6 +15,7 @@ setup( name='pcreode',
            'matplotlib',
            'sklearn',
            'igraph',
+           'jupyter',
        ],
      )
 
