@@ -156,7 +156,7 @@ def find_endstates( data, density, noise, target, potential_clusters=10, cls_thr
     # final edge weights are product of density weights and distance matrix
     weighted_adj = np.multiply( Dist, den_adj) 
     # create undirected igraph instance using weighted matrix
-    d_knn = Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
+    d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
 
     # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
     # components() returns nested array with each row containing the indices for each component
@@ -566,7 +566,7 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
         # final edge weights are product of density weights and distance matrix
         weighted_adj = np.multiply( Dist, den_adj) 
         # create undirected igraph instance using weighted matrix
-        d_knn = Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
+        d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
 
         # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
         # components() returns nested array with each row containing the indices for each component
