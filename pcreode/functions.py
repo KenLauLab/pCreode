@@ -161,7 +161,7 @@ def find_endstates( data, density, noise, target, potential_clusters=10, cls_thr
     # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
     # components() returns nested array with each row containing the indices for each component
     # the largest component is listed first.
-    comp   = d_knn.components( mode=WEAK)
+    comp   = d_knn.components()
     n_comp = len( comp)
     print( "connecting components")
     while( n_comp>1):
@@ -189,7 +189,7 @@ def find_endstates( data, density, noise, target, potential_clusters=10, cls_thr
             comp_coords = np.argwhere( comp_dist==conn)[0]
             combined    = conn*(1 - (min( dens_norm[comp[0][comp_coords[0]]], dens_norm[comp[min_comp][comp_coords[1]]])))
             d_knn.add_edge( comp[0][comp_coords[0]], comp[min_comp][comp_coords[1]], weight=combined)
-        comp    = d_knn.components( mode=WEAK)
+        comp    = d_knn.components()
         n_comp = len( comp)
 
     print( "finding endstates")
@@ -571,7 +571,7 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
         # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
         # components() returns nested array with each row containing the indices for each component
         # the largest component is listed first.
-        comp   = d_knn.components( mode=WEAK)
+        comp   = d_knn.components()
         n_comp = len( comp)
         while( n_comp>1):
             # find graph component that is closest to the largest component
@@ -598,7 +598,7 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
                 comp_coords = np.argwhere( comp_dist==conn)[0]
                 combined    = conn*(1 - (min( dens_norm[comp[0][comp_coords[0]]], dens_norm[comp[min_comp][comp_coords[1]]])))
                 d_knn.add_edge( comp[0][comp_coords[0]], comp[min_comp][comp_coords[1]], weight=combined)
-            comp    = d_knn.components( mode=WEAK)
+            comp    = d_knn.components()
             n_comp = len( comp)
 
         print( "finding endstates")
