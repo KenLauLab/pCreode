@@ -295,7 +295,7 @@ def hierarchical_placement( graph, end_ind):
     # make sure all endstate components are connected to form a complete graph
     names = np.array( hi_pl.vs['name'])
     names = names.astype( np.int)
-    comp  = hi_pl.components( mode=WEAK)
+    comp  = hi_pl.components()
     num_comp = len( comp)
     while( num_comp>1):
         rest = np.empty((0,1), dtype=int)
@@ -311,7 +311,7 @@ def hierarchical_placement( graph, end_ind):
         for xx in range( len( comp_path)-1):
             wgt = graph.shortest_paths( comp_path[xx], comp_path[xx+1], weights="weight")[0][0]
             hi_pl.add_edge( str( comp_path[xx]),str( comp_path[xx+1]), weight=wgt)
-        comp = hi_pl.components( mode=WEAK)
+        comp = hi_pl.components()
         num_comp = len( comp)
         names = np.array( hi_pl.vs['name'])
         names = names.astype( np.int)
