@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import igraph as _igraph
 from sklearn.metrics import pairwise_distances
-from sklearn.cluster import KMeans
+from sklearn.cluster import _KMeans
 from sklearn import preprocessing
 from sklearn import metrics
 
@@ -205,13 +205,13 @@ def find_endstates( data, density, noise, target, potential_clusters=10, cls_thr
     # prefrom K means clustering and score each attempt
     for ii in range( potential_clusters):
         print ii
-        kmeans_model  = KMeans( n_clusters=ii+2, random_state=10).fit( low_cls)
-        label         = kmeans_model.labels_
+        kmeans_model  = _KMeans( n_clusters=ii+2, random_state=10).fit( low_cls)
+        label         = _kmeans_model.labels_
         sil_score[ii] = metrics.silhouette_score( low_cls, labels=label, metric='l2')
         
     # find most likely number of clusters from scores above and double to allow for rare cell types
     num_clusters = ( np.argmax( sil_score) + 2) * 2
-    clust_model = KMeans( n_clusters=num_clusters, random_state=10).fit( low_cls)
+    clust_model = _KMeans( n_clusters=num_clusters, random_state=10).fit( low_cls)
     label      = clust_model.labels_
     print( "Number of endstates found -> {0}".format( num_clusters))
 
