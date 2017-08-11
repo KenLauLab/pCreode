@@ -156,7 +156,7 @@ def find_endstates( data, density, noise, target, potential_clusters=10, cls_thr
     # final edge weights are product of density weights and distance matrix
     weighted_adj = np.multiply( Dist, den_adj) 
     # create undirected igraph instance using weighted matrix
-    d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
+    d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False)
 
     # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
     # components() returns nested array with each row containing the indices for each component
@@ -464,8 +464,8 @@ def pCreode_Scoring( data, file_path, num_graphs):
             wad_1 = np.multiply( dist_1a, adj_1)
             wad_2 = np.multiply( dist_2a, adj_2)
             # create igraph weighted graph objects
-            g1 = _igraph.Graph.Weighted_Adjacency( wad_1.tolist(), mode=ADJ_UNDIRECTED)
-            g2 = _igraph.Graph.Weighted_Adjacency( wad_2.tolist(), mode=ADJ_UNDIRECTED)
+            g1 = _igraph.Graph.Weighted_Adjacency( wad_1.tolist())
+            g2 = _igraph.Graph.Weighted_Adjacency( wad_2.tolist())
             # get graph distance between all nodes in each graph
             dist_1 = get_graph_distance( range( len( ind_1)), range( len( ind_1)), g1)
             dist_2 = get_graph_distance( range( len( ind_2)), range( len( ind_2)), g2)
@@ -566,7 +566,7 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
         # final edge weights are product of density weights and distance matrix
         weighted_adj = np.multiply( Dist, den_adj) 
         # create undirected igraph instance using weighted matrix
-        d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
+        d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False)
 
         # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
         # components() returns nested array with each row containing the indices for each component
