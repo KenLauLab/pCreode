@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import igraph as _igraph
+from igraph import *
 from sklearn.metrics import pairwise_distances
 from sklearn.cluster import KMeans as _KMeans
 from sklearn import preprocessing
@@ -156,12 +157,12 @@ def find_endstates( data, density, noise, target, potential_clusters=10, cls_thr
     # final edge weights are product of density weights and distance matrix
     weighted_adj = np.multiply( Dist, den_adj) 
     # create undirected igraph instance using weighted matrix
-    d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False)
+    d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
 
     # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
     # components() returns nested array with each row containing the indices for each component
     # the largest component is listed first.
-    comp   = d_knn.components()
+    comp   = d_knn.components( mode=WEAK)
     n_comp = len( comp)
     print( "connecting components")
     while( n_comp>1):
@@ -189,7 +190,7 @@ def find_endstates( data, density, noise, target, potential_clusters=10, cls_thr
             comp_coords = np.argwhere( comp_dist==conn)[0]
             combined    = conn*(1 - (min( dens_norm[comp[0][comp_coords[0]]], dens_norm[comp[min_comp][comp_coords[1]]])))
             d_knn.add_edge( comp[0][comp_coords[0]], comp[min_comp][comp_coords[1]], weight=combined)
-        comp    = d_knn.components()
+        comp    = d_knn.components( mode=WEAK)
         n_comp = len( comp)
 
     print( "finding endstates")
@@ -295,7 +296,7 @@ def hierarchical_placement( graph, end_ind):
     # make sure all endstate components are connected to form a complete graph
     names = np.array( hi_pl.vs['name'])
     names = names.astype( np.int)
-    comp  = hi_pl.components()
+    comp  = hi_pl.components( mode=WEAK)
     num_comp = len( comp)
     while( num_comp>1):
         rest = np.empty((0,1), dtype=int)
@@ -311,7 +312,7 @@ def hierarchical_placement( graph, end_ind):
         for xx in range( len( comp_path)-1):
             wgt = graph.shortest_paths( comp_path[xx], comp_path[xx+1], weights="weight")[0][0]
             hi_pl.add_edge( str( comp_path[xx]),str( comp_path[xx+1]), weight=wgt)
-        comp = hi_pl.components()
+        comp = hi_pl.components( mode=WEAK)
         num_comp = len( comp)
         names = np.array( hi_pl.vs['name'])
         names = names.astype( np.int)
@@ -464,8 +465,8 @@ def pCreode_Scoring( data, file_path, num_graphs):
             wad_1 = np.multiply( dist_1a, adj_1)
             wad_2 = np.multiply( dist_2a, adj_2)
             # create igraph weighted graph objects
-            g1 = _igraph.Graph.Weighted_Adjacency( wad_1.tolist())
-            g2 = _igraph.Graph.Weighted_Adjacency( wad_2.tolist())
+            g1 = _igraph.Graph.Weighted_Adjacency( wad_1.tolist(), mode=ADJ_UNDIRECTED)
+            g2 = _igraph.Graph.Weighted_Adjacency( wad_2.tolist(), mode=ADJ_UNDIRECTED)
             # get graph distance between all nodes in each graph
             dist_1 = get_graph_distance( range( len( ind_1)), range( len( ind_1)), g1)
             dist_2 = get_graph_distance( range( len( ind_2)), range( len( ind_2)), g2)
@@ -566,12 +567,12 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
         # final edge weights are product of density weights and distance matrix
         weighted_adj = np.multiply( Dist, den_adj) 
         # create undirected igraph instance using weighted matrix
-        d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False)
+        d_knn = _igraph.Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
 
         # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
         # components() returns nested array with each row containing the indices for each component
         # the largest component is listed first.
-        comp   = d_knn.components()
+        comp   = d_knn.components( mode=WEAK)
         n_comp = len( comp)
         while( n_comp>1):
             # find graph component that is closest to the largest component
@@ -598,7 +599,7 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
                 comp_coords = np.argwhere( comp_dist==conn)[0]
                 combined    = conn*(1 - (min( dens_norm[comp[0][comp_coords[0]]], dens_norm[comp[min_comp][comp_coords[1]]])))
                 d_knn.add_edge( comp[0][comp_coords[0]], comp[min_comp][comp_coords[1]], weight=combined)
-            comp    = d_knn.components()
+            comp    = d_knn.components( mode=WEAK)
             n_comp = len( comp)
 
         print( "finding endstates")
