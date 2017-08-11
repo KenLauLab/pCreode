@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup( name='pcreode',
-       version='0.8',
+       version='0.9',
        description='p-Creode algorithm for mapping state transitions',
        url='https://github.com/herrinca/pCreode',
        author='Chuck Herring',
@@ -15,6 +15,7 @@ setup( name='pcreode',
            'matplotlib',
            'sklearn',
            'igraph',
+           'pyrex',
            'jupyter',
        ],
      )
