@@ -490,6 +490,199 @@ def pCreode_Scoring( data, file_path, num_graphs):
     np.savetxt( file_path + 'graph_dist_diff.csv',    diff+diff.T, delimiter=',')
     np.savetxt( file_path + 'combined_norm_diff.csv', br_diff, delimiter=',')  
     
+#################################################
+#### add option for endstates                ####
+#################################################
+
+def pCreode( data, density, noise, target, file_path, num_runs=100, potential_clusters=10, cls_thresh=0.0):
+    ''' 
+    Function for retrieving endstates, does not run connect the endstates 
+    :param data:    numpy ndarray of data set
+    :param density: numpy array of calculated densities for each datapoint
+    :param noise:   value for noise threshold, densities below value will be removed during downsampling
+    :param target:  value for target density
+    :param file_path: path to directory where output files will be stored
+    :param num_runs:  number of independent runs to perform, default is 100 
+    :param potential_clusters: value for upper range of number of clusters to search for, default value is 10
+    :param cls_thresh: value for closeness threshold use to separate potential endstates from transitional cell types default value is 0.0
+    :return: will save creode files in given directory
+    '''
+    if not ( isinstance( data, np.ndarray)):
+        raise TypeError( 'data variable must be numpy ndarray')
+    if not ( isinstance( density, np.ndarray)):
+        raise TypeError( 'data variable must be numpy array')
+    if not ( os.path.exists( file_path)):
+        raise TypeError( 'please supply a valid directory')
+        
+    print( "Performing {0} independent runs, may take some time".format( num_runs))
+        
+    for run_itr in range( num_runs):
+        
+        # get downsampled dataset
+        down, down_ind = Down_Sample( data, density, noise, target)
+
+        # array for orginal density (prior to downsampling) of downsampled data points
+        down_density = density[down_ind]
+        n_down       = len( down)
+
+        # get distance matrix for down sampled dataset
+        Dist = np.array( pairwise_distances( down, down, n_jobs=1))
+
+        # set upper and lower thresholds for number of neighbors to connect in density 
+        # based nearest neighbor graph (d-kNN) (current fixed values are 2 and 10)
+        upper_nn = 10
+        lower_nn = 2
+
+        # assign number of neighbors to connect to, to each datapoint 
+        sorted_nn = np.linspace( lower_nn, upper_nn, n_down, dtype=int)
+        nn = np.zeros( n_down, dtype=int)
+        nn[np.argsort( down_density)] = sorted_nn
+
+        # create adjacency matrix to hold neighbor connections for d-kNN
+        adj = np.zeros( ( n_down, n_down), dtype=int)
+        for zz in range( n_down):
+            adj[zz,np.argsort( Dist[zz,:])[1:nn[zz]]] = 1
+        # to make symetric add adj with transpose
+        adj = np.add( adj, adj.T)
+        # make sure overlaping neighbors arnt double counted
+        adj[adj>0] = 1.0
+
+        # normalize the orginal densities of the downsampled data points
+        norm = preprocessing.MinMaxScaler()
+        dens_norm = np.ravel( norm.fit_transform( down_density.reshape( -1, 1).astype( np.float)))
+
+        # weight edges of d-kNN by inverse of orginal densities
+        den_adj = np.zeros( ( n_down, n_down), dtype=float)
+        print( "Constructing density kNN")
+        # get coordinates of connections from adjacency matrix
+        adj_coords = np.nonzero( np.triu( adj))
+        for hh, uu in zip( adj_coords[0], adj_coords[1]):
+            # take the minimum density of nodes connected by the edge
+            # add 0.1 so that no connection is lost (not equal to zero)
+            den_adj[hh,uu] = 1.1 - ( min( [dens_norm[hh], dens_norm[uu]]))
+        # make symetric 
+        den_adj  = np.add( den_adj, den_adj.T)
+        # final edge weights are product of density weights and distance matrix
+        weighted_adj = np.multiply( Dist, den_adj) 
+        # create undirected igraph instance using weighted matrix
+        d_knn = Graph.Weighted_Adjacency( weighted_adj.tolist(), loops=False, mode=ADJ_UNDIRECTED)
+
+        # need to make sure all graph components in d-kNN are connected (d-kNN is a complete graph)
+        # components() returns nested array with each row containing the indices for each component
+        # the largest component is listed first.
+        comp   = d_knn.components( mode=WEAK)
+        n_comp = len( comp)
+        while( n_comp>1):
+            # find graph component that is closest to the largest component
+            rest = np.empty( (0,1), dtype=int)
+            rc   = np.zeros( n_comp, dtype=int)
+            for zz in range( 1, n_comp):
+                # rest hold the indices for all data points not connected to largest component
+                rest   = np.append( rest, comp[zz])
+                # rc is an accounting variable used to identify which components the data points are in 
+                rc[zz] = len( rest)
+            # find the location of the closest unconnected data point
+            rest_dist   = np.array( pairwise_distances( down[comp[0],:], down[rest,:], n_jobs=1))
+            rest_min    = np.amin( rest_dist[np.nonzero( rest_dist)])
+            rest_coords = np.argwhere( rest_dist==rest_min)[0]
+
+            for jj in range( 1, n_comp):
+                if( rc[jj]>rest_coords[1]):
+                    min_comp  = jj 
+                    comp_dist = rest_dist[:,rc[jj-1]:rc[jj]]
+                    break
+
+            conn_dist = np.sort( comp_dist[np.nonzero( comp_dist)].tolist())[:1]
+            for conn in conn_dist:
+                comp_coords = np.argwhere( comp_dist==conn)[0]
+                combined    = conn*(1 - (min( dens_norm[comp[0][comp_coords[0]]], dens_norm[comp[min_comp][comp_coords[1]]])))
+                d_knn.add_edge( comp[0][comp_coords[0]], comp[min_comp][comp_coords[1]], weight=combined)
+            comp    = d_knn.components( mode=WEAK)
+            n_comp = len( comp)
+
+        print( "finding endstates")
+        # get closeness of graph and standardize to aid in endstate identification
+        cls     = np.array( d_knn.closeness( weights="weight"))
+        scaler  = preprocessing.StandardScaler()
+        std_cls = scaler.fit_transform( cls.reshape(-1,1)).ravel()
+
+        # using closeness as threshold (default value = 0.0) get potential endstates
+        low_cls = down[std_cls<=cls_thresh]
+        # array to hold silhouette score for each cluster try
+        sil_score = [0]*potential_clusters
+
+        # prefrom K means clustering and score each attempt
+        for ss in range( potential_clusters):
+            kmeans_model  = KMeans( n_clusters=ss+2, random_state=10).fit( low_cls)
+            label         = kmeans_model.labels_
+            sil_score[ss] = metrics.silhouette_score( low_cls, labels=label, metric='l2')
+
+        # find most likely number of clusters from scores above and double to allow for rare cell types
+        num_clusters = ( np.argmax( sil_score) + 2) * 2
+        clust_model = KMeans( n_clusters=num_clusters, random_state=10).fit( low_cls)
+        label      = clust_model.labels_
+        print( "Number of endstates found -> {0}".format( num_clusters))
+
+        endstates = clust_model.cluster_centers_
+        endstates_ind = np.zeros( (num_clusters, 1), dtype=int)
+        for ii in range( num_clusters):
+            endstates_ind[ii] = find_closest_ind( endstates[ii], data)
+        endstates_ind = endstates_ind.ravel()
+        endstates = data[endstates_ind,:]
+
+        # Endstate data points were picked from full data set, so need to be appended to down and down_ind
+        # Create array to hold where end_states are located within the downsampled dataset
+        cen_ind = np.zeros( num_clusters, dtype=int)
+        ind = n_down
+        for es in range( num_clusters):
+            # first need to check if they are already in the graph, if not:
+            if( ~np.in1d( endstates_ind[es], down_ind)):
+                down     = np.vstack( ( down, endstates[es]))
+                down_ind = np.append( down_ind, endstates_ind[es])
+                cen_ind[es] = ind
+                ind = ind + 1
+            # if data point is already in down
+            else:
+                cen_ind[es] = np.argwhere( endstates_ind[es]==down_ind).ravel()[0]
+                continue
+
+        # add endstate data points to the already constructed d_knn graph, connecting to 2 closest neighbors
+        # future update will so that number of edges is based on density of data point
+        knn_num = 2
+        # add nodes to graph that will represent endstates
+        d_knn.add_vertices( num_clusters)
+        # get distance matrix to be used for finding closeset neighbors in graph
+        end_dist = np.array( pairwise_distances( endstates, down[:-num_clusters], n_jobs=1))
+        for kk in range( num_clusters):
+            edg_wts = np.sort( end_dist[kk,:])[1:knn_num+1]
+            edg_ids = np.argsort( end_dist[kk,:])[1:knn_num+1]
+            for jj in range( knn_num):
+                # no need to connect if connection is already present
+                if( edg_wts[jj]<2.0e-06):
+                    continue
+                # if not present add edge with distance/density weight
+                else:
+                    d_knn.add_edge( cen_ind[kk], edg_ids[jj], weight=edg_wts[jj]*(1-dens_norm[edg_ids[jj]]))
+        print( "hierarchical placing")
+        # perform hierarchical placement of endstates (find shortest paths connecting them within d_knn)
+        hi_pl, hi_pl_ind = hierarchical_placement( d_knn, cen_ind)
+        print( "consensus aligning")
+        # perform consensus alignment of hierarchical placement data points
+        aligned_ind = consensus_alignment( down, hi_pl_ind.copy(), data, density, noise)
+        # add orginal endstates back into aligned list of indices 
+        al_es_ind = np.append( cen_ind, np.unique( aligned_ind[~np.in1d( aligned_ind, cen_ind)]))
+        # perform hierarchical placement of of newly aligned data points    
+        al_hi_pl, al_hi_pl_ind = hierarchical_placement( d_knn, al_es_ind)
+        # rerun hierarchical placement on the aligned placement graph to eliminate superfluous edges
+        # by re-feeding it the orginal endstate indices
+        creode_graph, creode_ind = hierarchical_placement( al_hi_pl, range( num_clusters))
+        creode_graph.simplify( combine_edges="mean")
+        print( "saving files for run_num {0}".format( run_itr + 1))
+        np.savetxt( file_path + "ind_{0}.csv".format( run_itr), down_ind[al_hi_pl_ind[creode_ind]], delimiter=',')
+        creode_graph.save( file_path + "adj_{0}.txt".format( run_itr), format="adjacency" )
+
+    return( creode_graph, down_ind[al_hi_pl_ind[creode_ind]])
+
     
     
     
