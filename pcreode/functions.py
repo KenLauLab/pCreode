@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import igraph as _igraph
 from sklearn.metrics import pairwise_distances
-from sklearn.cluster import _KMeans
+from sklearn.cluster import KMeans as _KMeans
 from sklearn import preprocessing
 from sklearn import metrics
 
