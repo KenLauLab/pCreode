@@ -615,13 +615,13 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
 
         # prefrom K means clustering and score each attempt
         for ss in range( potential_clusters):
-            kmeans_model  = KMeans( n_clusters=ss+2, random_state=10).fit( low_cls)
+            kmeans_model  = _KMeans( n_clusters=ss+2, random_state=10).fit( low_cls)
             label         = kmeans_model.labels_
             sil_score[ss] = metrics.silhouette_score( low_cls, labels=label, metric='l2')
 
         # find most likely number of clusters from scores above and double to allow for rare cell types
         num_clusters = ( np.argmax( sil_score) + 2) * 2
-        clust_model = KMeans( n_clusters=num_clusters, random_state=10).fit( low_cls)
+        clust_model = _KMeans( n_clusters=num_clusters, random_state=10).fit( low_cls)
         label      = clust_model.labels_
         print( "Number of endstates found -> {0}".format( num_clusters))
 
