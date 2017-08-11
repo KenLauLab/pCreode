@@ -5,6 +5,7 @@ from sklearn.metrics import pairwise_distances
 from sklearn.cluster import KMeans as _KMeans
 from sklearn import preprocessing
 from sklearn import metrics
+import os as _os
 
 
 #################################################
@@ -438,7 +439,7 @@ def pCreode_Scoring( data, file_path, num_graphs):
     '''
     if not ( isinstance( data, np.ndarray)):
         raise TypeError( 'data variable must be numpy ndarray')        
-    if not ( os.path.exists( file_path)):
+    if not ( _os.path.exists( file_path)):
         raise TypeError( 'please supply a valid directory')
 
     # array to hold all graph differences between graphs 
@@ -511,7 +512,7 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
         raise TypeError( 'data variable must be numpy ndarray')
     if not ( isinstance( density, np.ndarray)):
         raise TypeError( 'data variable must be numpy array')
-    if not ( os.path.exists( file_path)):
+    if not ( _os.path.exists( file_path)):
         raise TypeError( 'please supply a valid directory')
         
     print( "Performing {0} independent runs, may take some time".format( num_runs))
