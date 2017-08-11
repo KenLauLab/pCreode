@@ -11,7 +11,7 @@ setup( name='pcreode',
        install_requires=[
            'numpy>=1.11.0',
            'pandas>=0.17.1',
-           'tsne==0.1.3',
+           'tsne==0.1.7',
            'matplotlib',
            'sklearn',
            'igraph',
