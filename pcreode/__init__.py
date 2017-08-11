@@ -1,4 +1,3 @@
-from . import pcreode
-from . import functions
+from pcreode import *
 
-__version__ = "0.5"
+__version__ = "0.6"
