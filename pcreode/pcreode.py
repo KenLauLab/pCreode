@@ -5,7 +5,7 @@ from sklearn.decomposition import PCA as _PCA
 from sklearn.metrics import pairwise_distances as _pairwise_distances
 from sklearn import preprocessing as _preprocessing
 import os as _os
-import functions
+from functions import *
 
 #################################################
 class Data( object):
