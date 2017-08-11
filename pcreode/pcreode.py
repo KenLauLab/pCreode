@@ -1,5 +1,6 @@
 import matplotlib.pyplot as _plt
 import pandas as _pd
+import numpy as np
 from sklearn.decomposition import PCA as _PCA
 from sklearn.metrics import pairwise_distances as _pairwise_distances
 from sklearn import preprocessing as _preprocessing
