@@ -7,7 +7,6 @@ setup( name='pcreode',
        author='Chuck Herring',
        author_email='charles.a.herring@Vanderbilt.edu',
        license='MIT',
-       package_dir={'': 'pcreode'},
        packages=['pcreode'],
        install_requires=[
            'numpy>=1.11.0',
