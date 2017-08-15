@@ -32,7 +32,7 @@ class Data( object):
         self.pca_explained_var = pca.explained_variance_ratio_ * 100
         return
     
-    def pca_plot_explained_var( self, figsize=(6,6)):
+    def pca_plot_explained_var( self, figsize=(6,6), xlim=(0,25)):
         """ 
         Plot the variance explained by different principal components
         :param figsize: size of plot to return
@@ -44,6 +44,7 @@ class Data( object):
         ax = fig.add_subplot(111)
         ax.set_xlabel( 'PC#')
         ax.set_ylabel( 'Explained Var')
+        ax.set_xlim( xlim)
         ax.plot( range( len( self.pca_explained_var)), self.pca_explained_var, '-o')
         return
     
@@ -124,9 +125,7 @@ class Density( object):
             
             for chunk_ind, ind in enumerate( chunk):
                 neighbors[ind] = np.setdiff1d( np.ravel( np.argwhere( chunk_dist[chunk_ind]<=radius).ravel()), ind)
-                # minus one takes care of the counting itself
                 density[ind] = len( neighbors[ind])
-                ######## density[ind] = len( chunk_dist[chunk_ind][chunk_dist[chunk_ind]<=radius]) - 1
         print( "****Always check density overlay for radius fit****")
         self.density   = density
         self.neighbors = neighbors

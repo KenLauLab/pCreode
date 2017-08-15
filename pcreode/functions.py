@@ -449,7 +449,7 @@ def pCreode_Scoring( data, file_path, num_graphs):
     br   = np.zeros( (num_graphs, num_graphs))
     # loop through to compare all graphs, will result in lower left triangle matrix (br&diff)
     for zz in range( num_graphs-1):
-        print( "scoring graph {0}".format( zz))
+        print( "scoring graph {0}".format( zz+1))
         for kk in range( zz+1, num_graphs):
             # read in arrays for indices for two graphs, in terms of original dataset
             ind_1  = np.genfromtxt( file_path + 'ind_{}.csv'.format( zz), delimiter=',').astype( int)
