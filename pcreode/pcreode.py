@@ -23,6 +23,8 @@ class PCA( object):
         self._cell_count    = data.shape[0]
         self._protein_count = data.shape[1]
         
+        #print( 'Cell count = {0}, Gene/protein count = {1}'.format( data.shape[0],data.shape[1])) 
+        
     def get_pca( self):
         """
         Principal component analysis of data 
@@ -87,7 +89,7 @@ class Density( object):
         :return: Histograom of distances to nearest neighbors
         """
         if ( n_rand_pts>self._n_pts):
-            raise TypeError( 'number of n_rand_pts is greater than number of points in the dataset')
+            n_rand_pts=self._n_pts
             
         r_inds     = np.random.choice( range( self._n_pts), size=n_rand_pts)
         dists      = _pairwise_distances( self._data[r_inds,:], self._data, metric=self._metric)
