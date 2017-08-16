@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import igraph as _igraph
+import matplotlib.pyplot as _plt
+import random
 from igraph import *
 from sklearn.metrics import pairwise_distances
 from sklearn.cluster import KMeans as _KMeans
@@ -8,7 +10,57 @@ from sklearn import preprocessing
 from sklearn import metrics
 import os as _os
 
+#################################################   
+def plot_save_graph( seed, file_path, graph_id, data, overlay, density, file_out, upper_range=3):
+    """
+    Plots a p-Creode  graph with given overlay
+    :param seed:      random interger to be used to seed graph plot
+    :param file_path: path to directory where graph files are stored
+    :param graph_id:  graph ID to plot in given directory
+    :param data:      data used to find p-Creode graph (processed data set)
+    :param density:   data point densities used to create p-Creode graph
+    :patam overlay:   characteristic to overlay on graph, likely from preprocessed data set 
+    :param file_out:  name to give saved graph
+    :param up_range:  to upper range from which to normalize overlay to, this will vary with overlay
+    :return: A plot of selected p-Creode graph with given overlay and saves a png in file_path with file_out name
+    """
+    # read adjacency matrix for graph
+    adj   = pd.read_table( file_path + 'adj_{}.txt'.format(graph_id), sep=" ", header=None)
+    # read in indices for nodes in terms of original data set
+    ind   = np.genfromtxt( file_path + 'ind_{}.csv'.format(graph_id), delimiter=',').astype( int)
+    # get distance between nodes in graph
+    dist  = pairwise_distances( data[ind,:], data[ind,:], n_jobs=1, metric='l2')
+    # calculate weighted adjacency matric
+    w_adj = np.multiply( adj.values, dist)
+    # create graph to plots
+    graph = _igraph.Graph.Weighted_Adjacency( w_adj.tolist(), mode=ADJ_UNDIRECTED)
+    
+    # normalize densities to use for nodes sizes in graph plot
+    norm_dens = preprocessing.MinMaxScaler( feature_range=(4,25))
+    dens      = norm_dens.fit_transform( density.astype( float).reshape(-1, 1))[ind]
+    # normalize overlay to use for node overlays
+    norm_ana = preprocessing.MinMaxScaler( feature_range=(0, upper_range))
+    old_ana  = norm_ana.fit_transform( overlay.values.astype( np.float).reshape(-1, 1))
+    # bin the data points to each node so that an average of closest surrounding nodes is used for overlay
+    bin_dist = pairwise_distances( data, data[ind])
+    bin_assignments = np.argmin( bin_dist, axis=1)
+    new_ana = overlay.values[ind]
+    for ii in range( len( ind)):
+        new_ana[ii] = np.mean( old_ana[bin_assignments==ii])
+    norm_1 = np.array( new_ana, dtype=float)
+    cl_vals_1 = [[]]*len( ind)
+    # colors to use for overlay
+    get_cl = _plt.get_cmap('RdYlBu_r')
+    for jj in range( len( ind)):
+        cl_vals_1[jj] = get_cl( norm_1[jj])
 
+    graph.vs["color"] = [cl_vals_1[kk] for kk in range( len( ind))]
+    random.seed( seed)
+    layout = graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
+    graph.vs["label"] = range( 1, len( ind)+1)      
+    return( plot( graph, file_path + '{0}.png'.format(file_out), layout=layout, bbox=(600,600), 
+                 vertex_label_size=0, vertex_size=dens, edge_width=2))  
+    
 #################################################
 def Down_Sample( data, density, noise, target):
     ''' 
@@ -490,7 +542,10 @@ def pCreode_Scoring( data, file_path, num_graphs):
             
     np.savetxt( file_path + 'branch_diff.csv',      br+br.T,   delimiter=',')
     np.savetxt( file_path + 'graph_dist_diff.csv',    diff+diff.T, delimiter=',')
-    np.savetxt( file_path + 'combined_norm_diff.csv', br_diff, delimiter=',')  
+    np.savetxt( file_path + 'combined_norm_diff.csv', br_diff, delimiter=',')
+    
+    ranks = np.argsort( np.mean( br_diff, axis=0))
+    print( "Most representative graph IDs from first to worst {}".format( ranks))
     
 #################################################
 #### add option for endstates                ####
@@ -685,6 +740,3 @@ def pCreode( data, density, noise, target, file_path, num_runs=100, potential_cl
 
     return( creode_graph, down_ind[al_hi_pl_ind[creode_ind]])
 
-    
-    
-    
