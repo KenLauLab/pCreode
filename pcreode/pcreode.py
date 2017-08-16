@@ -8,7 +8,7 @@ import os as _os
 from functions import *
 
 #################################################
-class Data( object):
+class PCA( object):
 
     def __init__( self, data):
         """
