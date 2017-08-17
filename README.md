@@ -47,4 +47,4 @@ Once p-Creode is installed you can access the tutorial by command line (conda en
 ```python
 jupyter notebook
 ```
-The downloaded p-Creode tutorial can be opened by using the jupyter interface to find the directory where it was saved. A brief introduction can be found [here](https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook#gs.P04bH=8).
+The downloaded p-Creode tutorial can be opened by using the jupyter interface to find the directory where it was saved. A brief introduction to jupyter notebook can be found [here](https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook#gs.P04bH=8).
