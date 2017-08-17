@@ -29,13 +29,13 @@ The problem with p-Creode installation on a Windows machine is with the python-i
 
     -       [pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo)
   
- For example, in Anaconda prompt, go to the directory where the whl is uploaded and:  
+            For example, in Anaconda prompt, go to the directory where the whl is uploaded and:  
    
             pip install pycairo-1.13.2-cp27-cp27m-win_amd64.whl
             
-    -       [python-igraph] (http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
+    -       [python-igraph](http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
     
-    pip install python_igraph-0.7.1.post6-cp27-none-win_amd64.whl
+            pip install python_igraph-0.7.1.post6-cp27-none-win_amd64.whl
     
 3.       pip install pcreode
 
