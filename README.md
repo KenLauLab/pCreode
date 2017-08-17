@@ -18,7 +18,7 @@ With this, install the jupyter notebook tutorial and the example scRNA-seq myelo
 ```python
 sudo pip install pcreode
 ```
-Then manually download the [juypter notebook]() and example [data file]() from the folders above. Simply right click on the download button and select "Save link as...".
+Then manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above. Simply right click on the download button and select "Save link as...".
 
 
 ### Installation for Windows
@@ -30,4 +30,4 @@ The problem with p-Creode installation on a Windows machine is with the python-i
     -       python-igraph (python_igraph-0.7.1.post6-cp27-none-win_amd64.whl)
 3.       pip install pcreode
 
-You will still need to manually download the [juypter notebook]() and example [data file]() from the folders above to be able to run the tutorial.
+You will still need to manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above to be able to run the tutorial.
