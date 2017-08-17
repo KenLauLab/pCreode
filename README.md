@@ -2,7 +2,11 @@
 
 The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. 
 
+<<<<<<< HEAD
 ### Installation of for Windows
+=======
+### Installation for Windows
+>>>>>>> 154119e99a703f312824a7fa684a33d222c9d826
 
 The problem with p-Creode installation on a Windows machine is with the python-igraph package, where there seems to be a bug in the setup.  Hence, additional steps must be taken.
 1.       Install Anaconda version 2.7
@@ -10,3 +14,8 @@ The problem with p-Creode installation on a Windows machine is with the python-i
     -       Cairo (pycairo-1.13.2-cp27-cp27m-win_amd64.whl)
     -       python-igraph (python_igraph-0.7.1.post6-cp27-none-win_amd64.whl)
 3.       pip install pcreode
+<<<<<<< HEAD
+=======
+
+You will still need to manually download the [juypter notebook]() and example [data file]() from the folders above to be able to run the tutorial. Simply right click on the download button and select "Save link as...".
+>>>>>>> 154119e99a703f312824a7fa684a33d222c9d826
