@@ -25,12 +25,18 @@ Then manually download the [juypter notebook](https://github.com/KenLauLab/pCreo
 
 The problem with p-Creode installation on a Windows machine is with the python-igraph package, where there seems to be a bug in the setup.  Hence, additional steps must be taken.
 1.       Install Anaconda version 2.7
-2.       Download the user compile wheels of 2 packages (download the 32 bit version as appropriate) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/): <br>
+2.       Download the user compile wheels of 2 packages (download the 32 bit version as appropriate) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/): 
 
     -       [pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo)
   
-  pip install pycairo-1.13.2-cp27-cp27m-win_amd64.whl
-    -       python-igraph (python_igraph-0.7.1.post6-cp27-none-win_amd64.whl)
+ For example, in Anaconda prompt, go to the directory where the whl is uploaded and:  
+   
+            pip install pycairo-1.13.2-cp27-cp27m-win_amd64.whl
+            
+    -       [python-igraph] (http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
+    
+    pip install python_igraph-0.7.1.post6-cp27-none-win_amd64.whl
+    
 3.       pip install pcreode
 
 You will still need to manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above to be able to run the tutorial.
