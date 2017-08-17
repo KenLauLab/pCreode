@@ -12,7 +12,7 @@ git clone git://github.com/herrinca/pCreode
 cd pCreode
 sudo pip install .
 ```
-With this install the tutorial and the example data set can be accessed in the notebook and data directories locally
+With this, install the tutorial and the example data set can be accessed in the notebook and data directories locally
 
 2.
 ```python
