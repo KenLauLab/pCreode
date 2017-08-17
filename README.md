@@ -12,7 +12,7 @@ git clone git://github.com/herrinca/pCreode
 cd pCreode
 sudo pip install .
 ```
-With this, install the tutorial and the example data set can be accessed in the notebook and data directories locally
+With this, install the jupyter notebook tutorial and the example scRNA-seq myeloid data set can be accessed in the notebook and data directories on your machine.
 
 2.
 ```python
@@ -30,4 +30,4 @@ The problem with p-Creode installation on a Windows machine is with the python-i
     -       python-igraph (python_igraph-0.7.1.post6-cp27-none-win_amd64.whl)
 3.       pip install pcreode
 
-You will still need to manually download the [juypter notebook]() and example [data file]() from the folders above to be able to run the tutorial. Simply right click on the download button and select "Save link as...".
+You will still need to manually download the [juypter notebook]() and example [data file]() from the folders above to be able to run the tutorial.
