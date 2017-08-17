@@ -40,3 +40,11 @@ The problem with p-Creode installation on a Windows machine is with the python-i
 3.       pip install pcreode
 
 You will still need to manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above to be able to run the tutorial.
+
+## Tutorial
+
+Once p-Creode is installed you can access the tutorial by command line (conda environment if using PC) with
+```python
+jupyter notebook
+```
+The downloaded p-Creode tutorial can be opened by using the jupyter interface to find the directory where it was saved. A brief introduction can be found [here](https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook#gs.P04bH=8).
