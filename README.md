@@ -4,10 +4,12 @@ The term creode was coined by C.H. Waddington, combining the Greek words for “
 
 ### Installation for Mac or Linux
 
-There are two ways to install p-Creode with Mac/Linux operating systems. p-Creode has been implemented using Python2.7 and can be installed the following ways
- 1.     git clone git://github.com/herrinca/pCreode
- 2.     cd pCreode
- 3.     sudo pip install .
+There are two ways to install p-Creode with Mac/Linux operating systems. p-Creode has been implemented using Python2.7 and can be installed the following ways"
+'''python
+git clone git://github.com/herrinca/pCreode
+cd pCreode
+sudo pip install .
+'''
 
 ### Installation for Windows
 
