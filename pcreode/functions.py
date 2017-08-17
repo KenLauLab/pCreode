@@ -57,9 +57,9 @@ def plot_save_graph( seed, file_path, graph_id, data, overlay, density, file_out
     graph.vs["color"] = [cl_vals_1[kk] for kk in range( len( ind))]
     random.seed( seed)
     layout = graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
-    graph.vs["label"] = range( 1, len( ind)+1)      
-    return( plot( graph, file_path + '{0}.png'.format(file_out), layout=layout, bbox=(200,200), 
-                 vertex_label_size=0, vertex_size=dens, edge_width=2))  
+    #graph.vs["label"] = range( 1, len( ind)+1)      
+    return( plot( graph, file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
+                 vertex_size=dens, edge_width=2))  
     
 #################################################
 def Down_Sample( data, density, noise, target):
