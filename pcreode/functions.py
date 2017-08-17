@@ -58,7 +58,7 @@ def plot_save_graph( seed, file_path, graph_id, data, overlay, density, file_out
     random.seed( seed)
     layout = graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
     graph.vs["label"] = range( 1, len( ind)+1)      
-    return( plot( graph, file_path + '{0}.png'.format(file_out), layout=layout, bbox=(600,600), 
+    return( plot( graph, file_path + '{0}.png'.format(file_out), layout=layout, bbox=(200,200), 
                  vertex_label_size=0, vertex_size=dens, edge_width=2))  
     
 #################################################
