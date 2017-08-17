@@ -2,6 +2,13 @@
 
 The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. 
 
+### Installation for Mac or Linux
+
+There are two ways to install p-Creode with Mac/Linux operating systems. p-Creode has been implemented using Python2.7 and can be installed the following ways
+ 1.     git clone git://github.com/herrinca/pCreode
+ 2.     cd pCreode
+ 3.     sudo pip install .
+
 ### Installation for Windows
 
 The problem with p-Creode installation on a Windows machine is with the python-igraph package, where there seems to be a bug in the setup.  Hence, additional steps must be taken.
