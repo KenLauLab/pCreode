@@ -12,7 +12,7 @@ git clone git://github.com/herrinca/pCreode
 cd pCreode
 sudo pip install .
 ```
-With this, install the jupyter notebook tutorial and the example scRNA-seq myeloid data set can be accessed in the notebook and data directories on your machine.
+With this install, the jupyter notebook tutorial and the example scRNA-seq myeloid data set can be accessed in the notebook and data directories on your machine.
 
 2.
 ```python
@@ -20,16 +20,17 @@ sudo pip install pcreode
 ```
 Then manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above. Simply right click on the download button and select "Save link as...".
 
+Note: For Mac users, Cairo may or may not be installed. If you have problems plotting, you need to install Cairo. Please follow the instructions in this [link](http://macappstore.org/cairo/).
 
 ### Installation for Windows
 
 The problem with p-Creode installation on a Windows machine is with the python-igraph package, where there seems to be a bug in the setup.  Hence, additional steps must be taken.
 1.       Install Anaconda version 2.7
-2.       Download the user compile wheels of 2 packages (download the 32 bit version as appropriate) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/): 
+2.       Download the user compile wheels of 2 packages (download the bit version as appropriate) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/): 
 
     -       [pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo)
   
-            For example, in Anaconda prompt, go to the directory where the whl is uploaded and:  
+            For example, in Anaconda prompt, go to the directory where the whl is downloaded and:  
    
             pip install pycairo-1.13.2-cp27-cp27m-win_amd64.whl
             
