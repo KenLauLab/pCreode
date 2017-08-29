@@ -260,7 +260,7 @@ def find_endstates( data, density, noise, target, potential_clusters=10, cls_thr
     for ii in range( potential_clusters):
         print ii
         kmeans_model  = _KMeans( n_clusters=ii+2, random_state=10).fit( low_cls)
-        label         = _kmeans_model.labels_
+        label         = kmeans_model.labels_
         sil_score[ii] = metrics.silhouette_score( low_cls, labels=label, metric='l2')
         
     # find most likely number of clusters from scores above and double to allow for rare cell types
