@@ -1,6 +1,6 @@
 # **p-Creode**
 
-The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. 
+The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. p-Creode was developed using Python2.7 is you are not using this version see below for instructions on how to install a Python2.7 kernel.  
 
 ### Installation for Mac or Linux
 
@@ -46,7 +46,7 @@ You will still need to manually download the [juypter notebook](https://github.c
 
 ## Tutorial
 
-*** If your Python version is greater than 3.0 you will need to install a Python 2.7 IPython kernel. Instructions on how to accomplish that can be found [here](https://ipython.readthedocs.io/en/latest/install/kernel_install.html)
+*** If your Python version is greater than 3.0 you will need to install a Python 2.7 IPython kernel to run jupyter notebooks. Instructions on how to accomplish that can be found [here](https://ipython.readthedocs.io/en/latest/install/kernel_install.html)
 
 Once p-Creode is installed you can access the tutorial by command line (conda environment if using PC) with
 ```python
