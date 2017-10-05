@@ -4,7 +4,7 @@ The term creode was coined by C.H. Waddington, combining the Greek words for “
 
 ### Installation for Mac or Linux
 
-There are two ways to install p-Creode with Mac/Linux operating systems. p-Creode has been implemented using Python2.7 and can be installed the following ways"
+There are two ways to install p-Creode with Mac/Linux operating systems.
 
 1.
 ```python
@@ -45,6 +45,8 @@ The problem with p-Creode installation on a Windows machine is with the python-i
 You will still need to manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above to be able to run the tutorial.
 
 ## Tutorial
+
+*** If your Python version is greater than 3.0 you will need to install a Python 2.7 IPython kernel. Instructions on how to accomplish that can be found [here](https://ipython.readthedocs.io/en/latest/install/kernel_install.html)
 
 Once p-Creode is installed you can access the tutorial by command line (conda environment if using PC) with
 ```python
