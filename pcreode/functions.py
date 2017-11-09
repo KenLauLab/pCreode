@@ -451,13 +451,13 @@ def graph_differences( ind_1, ind_2, dist_1, dist_2, dist, g_1, g_2):
     count = 0.0
     for ii in range( num_y-1):
         # find the closest node in other graph 
-        min_ind_ii  = np.argmin( dist[:,ii])
+        min_ind_ii  = np.argmin( dist[ii,:])
         # get euclidean distance between closest nodes(transformation distance)
-        min_dist_ii = dist[min_ind_ii,ii]
+        min_dist_ii = dist[ii,min_ind_ii]
         for jj in range( ii+1, num_y):
             # find the other closest node in 2nd graph
-            min_ind_jj  = np.argmin( dist[:,jj])
-            min_dist_jj = dist[min_ind_jj,jj]
+            min_ind_jj  = np.argmin( dist[jj,:])
+            min_dist_jj = dist[jj,min_ind_jj]
             # count number of branch points two nodes in graph one
             deg_list_1 = np.transpose( g_1.degree())[g_1.get_all_shortest_paths( min_ind_ii, min_ind_jj)[0]]
             g1_branches = sum( deg_list_1[deg_list_1>2]) - 2 * len( deg_list_1[deg_list_1>2])
