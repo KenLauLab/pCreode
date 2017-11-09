@@ -1,3 +1,3 @@
 from pcreode import *
 
-__version__ = "0.28"
+__version__ = "0.29"
