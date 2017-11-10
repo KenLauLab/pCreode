@@ -459,10 +459,10 @@ def graph_differences( ind_1, ind_2, dist_1, dist_2, dist, g_1, g_2):
             min_ind_jj  = np.argmin( dist[jj,:])
             min_dist_jj = dist[jj,min_ind_jj]
             # count number of branch points two nodes in graph one
-            deg_list_1 = np.transpose( g_1.degree())[g_1.get_all_shortest_paths( min_ind_ii, min_ind_jj)[0]]
+            deg_list_1 = np.transpose( g_1.degree())[g_1.get_all_shortest_paths( ii,jj)[0]]
             g1_branches = sum( deg_list_1[deg_list_1>2]) - 2 * len( deg_list_1[deg_list_1>2])
             # count number of branch points two nodes in graph two
-            deg_list_2 = np.transpose( g_2.degree())[g_2.get_all_shortest_paths( ii, jj)[0]]
+            deg_list_2 = np.transpose( g_2.degree())[g_2.get_all_shortest_paths( min_ind_ii, min_ind_jj)[0]]
             g2_branches = sum( deg_list_2[deg_list_2>2]) - 2 * len( deg_list_2[deg_list_2>2])
             # get difference in branch points between the two nodes being compared
             branch_diff = branch_diff + abs( g1_branches - g2_branches)
