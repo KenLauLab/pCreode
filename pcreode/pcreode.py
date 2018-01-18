@@ -322,10 +322,10 @@ class Analysis( object):
         # bin the data points to each node so that an average of closest surrounding nodes is used for overlay
         bin_dist = pairwise_distances( self.good_cells, self._data[self.node_data_indices])
         bin_assignments = np.argmin( bin_dist, axis=1)
-        new_ana = old_ana[self.node_data_indices]
-
+        new_ana = old_ana
+        
         #print( len( bin_assignments), len( self.good_cells_inds))
-        np.savetxt( self._file_path + "{}_clust_ids.csv".format( file_out), bin_assignments, delimiter=',')
+        np.savetxt( self._file_path + "{}_clust_ids.csv".format( file_out), np.vstack( (self.good_cells_inds, bin_assignments)), delimiter=',')
         
         for hh in range( num_ana):
             for ii in range( self.num_nodes):
@@ -334,6 +334,6 @@ class Analysis( object):
         for cc in range( num_traj):
             
             traj_ana = pd.DataFrame( new_ana[traj[cc]].T, index=overlay_data.columns)
-            traj_ana.to_csv( self._file_path + '{0}_traj{1}_analytes.csv'.format(file_out, cc))
+            traj_ana.to_csv( self._file_path + '{0}_traj{1}_analytes.csv'.format(file_out, cc+1))
             
         return
