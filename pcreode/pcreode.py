@@ -333,7 +333,7 @@ class Analysis( object):
                 
         for cc in range( num_traj):
             
-            traj_ana = pd.DataFrame( new_ana[traj[cc]].T, index=overlay_data.columns)
+            traj_ana = pd.DataFrame( new_ana[traj[cc]].T, index=overlay_data.columns, columns=traj[cc])
             traj_ana.to_csv( self._file_path + '{0}_traj{1}_analytes.csv'.format(file_out, cc+1))
             
         return
