@@ -8,6 +8,8 @@ from sklearn import preprocessing as _preprocessing
 import os as _os
 from igraph import *
 from functions import *
+import matplotlib
+
 
 #################################################
 class PCA( object):
@@ -337,3 +339,65 @@ class Analysis( object):
             traj_ana.to_csv( self._file_path + '{0}_traj{1}_analytes.csv'.format(file_out, cc+1))
             
         return
+        
+        
+    def plot_save_qual_graph( self, seed, overlay, file_out):
+        """
+        Plots a p-Creode  graph with given overlay
+        :param seed:      random interger to be used to seed graph plot
+        :param overlay:   numpy string of qualitative characteristic to overlay on graph 
+        :param file_out:  name to give saved graph in file_path provided
+        :return: A plot of selected p-Creode graph with qualitative overlay and saves a png in file_path with file_out name
+        """
+        if not ( isinstance( overlay, np.ndarray)):
+            raise TypeError( 'overlay variable must be numpy array')
+        if not ( overlay.dtype.char == 'S'):
+            raise TypeError( 'All elements in overlay variable must be in a string dtype')
+        
+        # get list of colors to be used for labeling
+        colors   = np.array( [])
+        cl_names = np.array( [])
+        for name, hex in matplotlib.colors.cnames.iteritems():
+            colors   = np.append(   colors, hex) 
+            cl_names = np.append( cl_names, name)
+        
+        # normalize densities to use for nodes sizes in graph plot
+        norm_dens = preprocessing.MinMaxScaler( feature_range=(4,20))
+        dens      = norm_dens.fit_transform( self._density.astype( float).reshape(-1, 1))[self.node_data_indices]
+        
+        # bin the data points to each node so that an average of closest surrounding nodes is used for overlay
+        bin_dist = pairwise_distances( self.good_cells, self._data[self.node_data_indices])
+        bin_assignments = np.argmin( bin_dist, axis=1)
+        new_ana = overlay[self.node_data_indices]
+        for ii in range( self.num_nodes):
+            u_over      = np.unique( overlay[np.where( bin_assignments==ii)])
+            new_ana[ii] = u_over[np.argmax( np.unique( overlay[np.where( bin_assignments==ii)], return_counts=True)[1])]
+        
+        ids_ana = np.zeros(self.num_nodes, dtype=int)
+        zz = 0
+        for ii in np.unique( overlay):
+            ids_ana[new_ana==ii] = zz
+            zz = zz + 1
+            
+        self.graph.vs["color"] = [colors[kk] for kk in ids_ana]
+        
+        random.seed( seed)
+        layout = self.graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
+        
+        g_plot = plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
+                     vertex_size=dens, edge_width=2, vertex_label_size=0)
+        
+        x = np.linspace( 0, 100, len( np.unique( overlay)))
+        y = [0]*len( x)
+        label = np.unique( overlay)
+        cls = cl_names[:len(x)]
+        
+        fig, ax = _plt.subplots( 1, figsize=(15,2))
+        ax.scatter(x, y, s=1000, c=cls, label=label)
+
+        for i, txt in enumerate( label):
+            ax.annotate(txt, (x[i]-1.0,y[i]+0.075))
+        _plt.axis( 'off')
+        _plt.show()        
+        
+        return( g_plot)  
