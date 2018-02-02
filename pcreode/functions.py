@@ -836,4 +836,31 @@ def pCreode_pca_extremes( data, density, noise, target, file_path, num_runs=100,
         creode_graph.save( file_path + "adj_{0}.txt".format( run_itr), format="adjacency" )
         
     return( creode_graph, down_ind[al_hi_pl_ind[creode_ind]])
+    
+#################################################
+
+def return_weighted_adj( data, file_path, graph_id):
+    ''' 
+    Function returns the similarity score between two graphs
+    :param data:      numpy ndarray of data set
+    :param graph_id:  graph ID to plot in given directory
+    :param file_path: path to directory where output files are stored
+    :return w_adj:    a numpy ndarray representing weighted adjacency matrix
+    '''
+    if not ( isinstance( data, np.ndarray)):
+        raise TypeError( 'data variable must be numpy ndarray')        
+    if not ( _os.path.exists( file_path)):
+        raise TypeError( 'please supply a valid file path directory')
+
+    # read in arrays for indices for two graphs, in terms of original dataset
+    ind_1  = np.genfromtxt( file_path + 'ind_{}.csv'.format( graph_id), delimiter=',').astype( int)
+    # read adjacency matrix for graphs 
+    adj_1  = pd.read_table( file_path + 'adj_{}.txt'.format( graph_id), sep=" ", header=None).values
+    # get euclidean distance between nodes in each graph to create weights in graph
+    dist_1a = pairwise_distances( data[ind_1,:], data[ind_1,:], n_jobs=1, metric='l2')
+    # create weighted adjacency matrix for graphs, 
+    # original graphs are not used because edges were weighted by density
+    wad_1 = np.multiply( dist_1a, adj_1)
+    
+    return( wad_1)
 
