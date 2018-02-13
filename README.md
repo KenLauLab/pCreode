@@ -42,6 +42,11 @@ The problem with p-Creode installation on a Windows machine is with the python-i
     
 3.       pip install pcreode
 
+*** if you are having issues with igraph plotting of graphs please try:
+```
+conda install -c conda-forge python-igraph
+```
+
 You will still need to manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above to be able to run the tutorial.
 
 ## Tutorial
