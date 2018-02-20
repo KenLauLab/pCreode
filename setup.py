@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup( name='pcreode',
-       version='1.3.2',
+       version='1.3.3',
        description='p-Creode algorithm for mapping state transitions',
        url='https://github.com/KenLauLab/pCreode',
        author='Chuck Herring',
