@@ -250,9 +250,10 @@ class Analysis( object):
         random.seed( seed)
         layout = self.graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
         
-        g_plot = plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
-                     vertex_size=dens, edge_width=2, vertex_label_size=node_label_size)
-        return( g_plot)  
+        #g_plot = plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
+        #            vertex_size=dens, edge_width=2, vertex_label_size=node_label_size)
+        return( plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
+                     vertex_size=dens, edge_width=2, vertex_label_size=node_label_size))  
     
     def get_single_trajectory_indices( self, start_id, stop_id):
         """
@@ -401,8 +402,8 @@ class Analysis( object):
         random.seed( seed)
         layout = self.graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
         
-        g_plot = plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
-                     vertex_size=dens, edge_width=2, vertex_label_size=0)
+        #g_plot = plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
+        #             vertex_size=dens, edge_width=2, vertex_label_size=0)
         
         x = np.linspace( 0, 100, len( np.unique( overlay)))
         y = [0]*len( x)
@@ -417,4 +418,5 @@ class Analysis( object):
         _plt.axis( 'off')
         _plt.show()        
         
-        return( g_plot)  
+        return( plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
+                     vertex_size=dens, edge_width=2, vertex_label_size=0))  
