@@ -26,6 +26,7 @@ import os as _os
 from igraph import *
 from functions import *
 import matplotlib
+from IPython.display import display, Image
 
 
 #################################################
@@ -227,7 +228,7 @@ class Analysis( object):
         """
         
         # normalize densities to use for nodes sizes in graph plot
-        norm_dens = preprocessing.MinMaxScaler( feature_range=(4,20))
+        norm_dens = preprocessing.MinMaxScaler( feature_range=(8,30))
         dens      = norm_dens.fit_transform( self._density.astype( float).reshape(-1, 1))[self.node_data_indices]
         # normalize overlay to use for node overlays
         norm_ana = preprocessing.MinMaxScaler( feature_range=(0, upper_range))
@@ -250,10 +251,12 @@ class Analysis( object):
         random.seed( seed)
         layout = self.graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
         
-        #g_plot = plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
-        #            vertex_size=dens, edge_width=2, vertex_label_size=node_label_size)
-        return( plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
-                     vertex_size=dens, edge_width=2, vertex_label_size=node_label_size))  
+        plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(1200,1200), 
+                    vertex_size=dens, edge_width=2, vertex_label_size=node_label_size)
+                    
+        display( Image( filename=self._file_path + file_out + '.png', embed=True, unconfined=True, width=600,height=600))
+        
+        return  
     
     def get_single_trajectory_indices( self, start_id, stop_id):
         """
@@ -380,7 +383,7 @@ class Analysis( object):
             cl_names = np.append( cl_names, name)
         
         # normalize densities to use for nodes sizes in graph plot
-        norm_dens = preprocessing.MinMaxScaler( feature_range=(4,20))
+        norm_dens = preprocessing.MinMaxScaler( feature_range=(8,30))
         dens      = norm_dens.fit_transform( self._density.astype( float).reshape(-1, 1))[self.node_data_indices]
         
         # bin the data points to each node so that an average of closest surrounding nodes is used for overlay
@@ -402,8 +405,9 @@ class Analysis( object):
         random.seed( seed)
         layout = self.graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
         
-        #g_plot = plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
-        #             vertex_size=dens, edge_width=2, vertex_label_size=0)
+        plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(1200,1200), 
+                     vertex_size=dens, edge_width=2, vertex_label_size=0)
+        display( Image( filename=self._file_path + file_out + '.png', embed=True, unconfined=True, width=600,height=600))
         
         x = np.linspace( 0, 100, len( np.unique( overlay)))
         y = [0]*len( x)
@@ -418,5 +422,4 @@ class Analysis( object):
         _plt.axis( 'off')
         _plt.show()        
         
-        return( plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(500,500), 
-                     vertex_size=dens, edge_width=2, vertex_label_size=0))  
+        return  
