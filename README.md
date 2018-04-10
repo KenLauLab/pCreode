@@ -10,7 +10,7 @@ There are two ways to install p-Creode with Mac/Linux operating systems.
 
 1.
 ```python
-git clone git://github.com/herrinca/pCreode
+git clone git://github.com/KenLauLab/pCreode
 cd pCreode
 sudo pip install .
 ```
