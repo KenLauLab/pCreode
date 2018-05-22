@@ -6,7 +6,7 @@ The term creode was coined by C.H. Waddington, combining the Greek words for “
 
 ### Installation for Mac or Linux
 
-There are two ways to install p-Creode with Mac/Linux operating systems.
+There are three ways to install p-Creode with Mac/Linux operating systems.
 
 1.
 ```python
@@ -21,6 +21,18 @@ With this install, the jupyter notebook tutorial and the example scRNA-seq myelo
 sudo pip install pcreode
 ```
 Then manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above. Simply right click on the download button and select "Save link as...".
+
+Homebrew and anaconda install courtesy of Dan Skelly.
+
+3.
+```python
+brew install igraph
+git clone git://github.com/KenLauLab/pCreode
+cd pCreode
+conda create -n pcreode python=2.7 python-dateutil=2.5.3 numpy pandas matplotlib python-igraph jupyter cython
+source activate pcreode
+pip install .
+```
 
 Note: For Mac users, Cairo may or may not be installed. If you have problems plotting, you need to install Cairo. Please follow the instructions in this [link](http://macappstore.org/cairo/).
 
