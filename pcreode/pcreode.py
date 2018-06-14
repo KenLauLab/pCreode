@@ -287,9 +287,11 @@ class Analysis( object):
         bin_dist = pairwise_distances( self.good_cells, self._data[self.node_data_indices])
         bin_assignments = np.argmin( bin_dist, axis=1)
         new_ana = overlay.values[self.node_data_indices]
+        new_std = np.zeros_like( new_ana)
         for ii in range( self.num_nodes):
             new_ana[ii] = np.mean( old_ana[bin_assignments==ii])
-
+            # get standard error for error bars
+            new_std[ii] = np.std(  old_ana[bin_assignments==ii]) / float( np.sqrt( len(old_ana[bin_assignments==ii])))
         # get branch points
         branch_id = self.node_graph_indices[np.transpose( self.graph.degree())>=3]
                         
@@ -301,11 +303,12 @@ class Analysis( object):
         for ii in range( num_traj):
 
             _plt.subplot(num_traj,1,ii+1)
-            _plt.bar( range( len( new_ana[traj[ii]])), new_ana[traj[ii]], width=1.0, color='green')
-            _plt.ylim(0,max(new_ana))
+            _plt.bar( range( len( new_ana[traj[ii]])), new_ana[traj[ii]], width=1.0, color='green', yerr=new_std[traj[ii]])
+            _plt.ylim(0,max(new_ana)+max(new_std))
             _plt.xlim(0,xlim)
             # plot where trajectory ends
             _plt.axvline( x=len( new_ana[traj[ii]]), color='black', linewidth=2.5)
+
 
             # plot branch points if they exist, likely always will
             br_ck = np.in1d( branch_id, traj[ii])
@@ -319,6 +322,7 @@ class Analysis( object):
             _plt.ylabel('Expression', fontsize=12)
                         
         return
+        
 
     def get_complete_analyte_gene_trajectories( self, overlay_data, root_id, file_out):
         """
