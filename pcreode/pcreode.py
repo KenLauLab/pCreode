@@ -396,8 +396,12 @@ class Analysis( object):
         new_ana = overlay[self.node_data_indices]
         for ii in range( self.num_nodes):
             u_over      = np.unique( overlay[np.where( bin_assignments==ii)])
-            new_ana[ii] = u_over[np.argmax( np.unique( overlay[np.where( bin_assignments==ii)], return_counts=True)[1])]
-        
+            uniqs = np.unique( overlay[np.where( bin_assignments==ii)], return_counts=True)[1]
+            # skip nodes with no cells assigned to it
+            if( uniqs.size==0):
+                continue
+            new_ana[ii] = u_over[np.argmax( uniqs)]
+
         ids_ana = np.zeros(self.num_nodes, dtype=int)
         zz = 0
         for ii in np.unique( overlay):
