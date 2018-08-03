@@ -101,15 +101,22 @@ class Density( object):
         self._n_components = preprocessed_data.shape[1]
         self._metric       = metric
             
-    def nearest_neighbor_hist( self, n_rand_pts=5000, n_bins=200, figsize=(8,6), metric='euclidean'):
+    def nearest_neighbor_hist( self, n_rand_pts=5000, n_bins=200, figsize=(8,6), metric='euclidean', mute=False):
         """
-        Plots a histogram of distance to nearest neighbor for
-        select number of random points
+        Plots a histogram of distance to nearest neighbor for select number of random points 
+        and returns a best guess for the radius used for density calculations
         :param n_rand_pts: Number of random pts to use to generate histogram
         :patam n_bins: Number of bins used to generate histogram
         :param figsize: size of plot to return
+        :param mute: boolean operator to suppress print statements
         :return: Histograom of distances to nearest neighbors
         """
+        # Save sys.stdout to return print output if muted 
+        old_stdout = sys.stdout
+        # Mute print statements if True
+        if( mute==True):
+            sys.stdout = open( os.devnull, 'w')
+        
         if ( n_rand_pts>self._n_pts):
             n_rand_pts=self._n_pts
             
@@ -122,19 +129,44 @@ class Density( object):
         ax.set_xlabel( 'Distance to Nearest Neighbor')
         ax.set_ylabel( 'Number of Datapoints')
         ax.hist( dists_sort[:,1], bins=n_bins)
-        # plot line for 3rd STD, can be used a starting radius in downsampling
-        best_guess = np.mean( dists_sort[:,1]) + 3*np.std( dists_sort[:,1])
+        # plot line for best guess starting radius in downsampling
+        best_guess = np.max( dists_sort[:,1])
         ax.axvline( best_guess, color='r')
-        print( "3rd STD (best guess starting radius) = {}".format( best_guess))
-        return
+        print( "best guess starting radius = {}".format( best_guess))
+        # return to normal treatment of print statements
+        sys.stdout = old_stdout
+        return( best_guess)
     
-    def get_density( self, radius, chunk_size=5000):
+    def radius_best_guess( self, n_rand_pts=5000, metric='euclidean'):
+        """
+        Returns a best guess for the radius based on a select number of random points
+        :param n_rand_pts: Number of random pts to use to generate histogram
+        :return: float numeric for best guess of radius
+        """
+        if ( n_rand_pts>self._n_pts):
+            n_rand_pts=self._n_pts
+            
+        r_inds     = np.random.choice( range( self._n_pts), size=n_rand_pts)
+        dists      = _pairwise_distances( self._data[r_inds,:], self._data, metric=self._metric)
+        dists_sort = np.sort( dists, axis=1)
+        # plotting configurations
+        best_guess = np.max( dists_sort[:,1])
+        return( best_guess)
+    
+    def get_density( self, radius, chunk_size=5000, mute=False):
         """
         Calculates the density of each datapoint
         :param radius: Radius around each datapoints used for density calculations
-        :patam chunk_size: Number of cells to consider during each iteration due to memory restrictions
+        :param chunk_size: Number of cells to consider during each iteration due to memory restrictions
+        :param  mute: boolean operator to suppress print statements
         :return: Calculated densities for all datapoints
         """
+        # Save sys.stdout to return print output if muted 
+        old_stdout = sys.stdout
+        # Mute print statements if True
+        if( mute==True):
+            sys.stdout = open( os.devnull, 'w')
+            
         # Due to memory restrictions density assignments have to be preformed in chunks
         all_chunks = get_chunks( range( self._n_pts), chunk_size)
         # create array to hold all densities
@@ -153,6 +185,10 @@ class Density( object):
         print( "****Always check density overlay for radius fit****")
         self.density   = density
         self.neighbors = neighbors
+        
+        # return to normal treatment of print statements
+        sys.stdout = old_stdout
+        
         return( density)
     
     def density_hist( self, n_bins=200, figsize=(8,6)):
@@ -307,7 +343,7 @@ class Analysis( object):
             _plt.ylim(0,max(new_ana)+max(new_std))
             _plt.xlim(0,xlim)
             # plot where trajectory ends
-            _plt.axvline( x=len( new_ana[traj[ii]]), color='black', linewidth=2.5)
+            _plt.axvline( x=len( new_ana[traj[ii]]), color='black', linewidth=2.5, linestyle='--')
 
 
             # plot branch points if they exist, likely always will
@@ -342,7 +378,11 @@ class Analysis( object):
         # return all trajectories from root node to all other end-states
         traj = np.ravel( self.graph.get_shortest_paths( root_id, end_ids))
 
-        num_traj = len( traj)
+        # lazy work around for when ravel is not needed with non-branching trajectories
+        if( len( end_ids)==1):
+            traj = [traj]
+        
+        num_traj = len( end_ids)
         num_ana  = overlay_data.shape[1]
 
         old_ana  = overlay_data.values[self._density>self._noise]
@@ -356,12 +396,16 @@ class Analysis( object):
         
         for hh in range( num_ana):
             for ii in range( self.num_nodes):
-                new_ana[ii,hh] = np.mean( old_ana[bin_assignments==ii,hh])
+                itr_ana = old_ana[bin_assignments==ii,hh]
+                # if no cells are binned to that node
+                if( itr_ana.size==0):
+                    continue
+                new_ana[ii,hh] = np.mean( itr_ana)
                 
         for cc in range( num_traj):
             
             traj_ana = pd.DataFrame( new_ana[traj[cc]].T, index=overlay_data.columns, columns=traj[cc])
-            traj_ana.to_csv( self._file_path + '{0}_traj{1}_analytes.csv'.format(file_out, cc+1))
+            traj_ana.to_csv( self._file_path + '{0}_traj{1}_analytes.csv'.format( file_out, cc+1))
             
         return
         
