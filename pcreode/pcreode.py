@@ -130,7 +130,7 @@ class Density( object):
         ax.set_ylabel( 'Number of Datapoints')
         ax.hist( dists_sort[:,1], bins=n_bins)
         # plot line for best guess starting radius in downsampling
-        best_guess = np.max( dists_sort[:,1])
+        best_guess = np.median( np.sort( dists_sort[:,1])[-20:])
         ax.axvline( best_guess, color='r')
         print( "best guess starting radius = {}".format( best_guess))
         # return to normal treatment of print statements
@@ -150,7 +150,7 @@ class Density( object):
         dists      = _pairwise_distances( self._data[r_inds,:], self._data, metric=self._metric)
         dists_sort = np.sort( dists, axis=1)
         # plotting configurations
-        best_guess = np.max( dists_sort[:,1])
+        best_guess = np.median( np.sort( dists_sort[:,1])[-20:])
         return( best_guess)
     
     def get_density( self, radius, chunk_size=5000, mute=False):

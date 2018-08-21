@@ -1334,14 +1334,11 @@ def get_thresholds( data):
     num_cells = len( data)
 
     if( num_cells<1000):
-        target = 100.0
-        noise  = 1.0
-    elif( num_cells>2500):
-        target = 50.0
-        noise  = 5.0
-    else:
         target = 80.0
-        noise = 2.0
+        noise  = 1.0
+    else:
+        target = 50.0
+        noise = 5.0
 
     return( noise, target)
 
