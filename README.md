@@ -1,6 +1,6 @@
 # **p-Creode**
 
-[![Travis](https://img.shields.io/KenLauLab/pCreode/pCreode.svg?logo=travis)](https://travis-ci.org/KenLauLab/pCreode)
+[![Build Status](https://travis-ci.org/KenLauLab/pCreode.svg?branch=master)](https://travis-ci.org/KenLauLab/pCreode)
 
 ### Please let us know if you run into any issues or have any questions, through the issues page above or by email: charles.a.herring@vanderbilt.edu. 
 
