@@ -1,0 +1,9 @@
+numpy 
+pandas 
+matplotlib
+sklearn 
+jgraph 
+python-igraph 
+jupyter 
+nvr 
+cairocffi
