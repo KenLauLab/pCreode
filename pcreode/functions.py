@@ -939,13 +939,12 @@ def return_weighted_adj( data, file_path, graph_id):
 
 def pCreode_rare_cells( data, density, noise, target, file_path, rare_clusters, num_runs=100, potential_clusters=10, cls_thresh=0.0, start_id=0, mute=False):
     ''' 
-    Function for running full pCreode algorithm, with the addition of principle component extremes found to be under the closeness threshold added as endstates
-    :param data:    numpy ndarray of data set
+    Function for running full pCreode algorithm, but allows user to add rare cell clusters using the indices of the cells.
     :param density: numpy array of calculated densities for each datapoint
     :param noise:   value for noise threshold, densities below value will be removed during downsampling
     :param target:  value for target density
     :param file_path: path to directory where output files will be stored
-    :param rare_clusters: nest array consisting of indices for clusters to be added, format of [[clust1 indices],[clust2 indices],[clust3 indices],...]
+    :param rare_clusters: nested array consisting of indices for clusters to be added, format of [[clust1 indices],[clust2 indices],[clust3 indices],...]
     :param num_runs:  number of independent runs to perform, default is 100 
     :param potential_clusters: value for upper range of number of clusters to search for, default value is 10
     :param cls_thresh: value for closeness threshold use to separate potential endstates from transitional cell types default value is 0.0
@@ -1146,7 +1145,7 @@ def pCreode_rare_cells( data, density, noise, target, file_path, rare_clusters, 
 
 def pCreode_supervised( data, density, noise, target, file_path, man_clust, num_runs=100, start_id=0, mute=False):
     ''' 
-    Function for running full pCreode algorithm, with the addition of principle component extremes found to be under the closeness threshold added as endstates
+    Function for running full pCreode algorithm, without endstate identification. Relies on user supplied endstates. 
     :param data:    numpy ndarray of data set
     :param density: numpy array of calculated densities for each datapoint
     :param noise:   value for noise threshold, densities below value will be removed during downsampling

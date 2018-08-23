@@ -4,8 +4,11 @@ python:
   - "2.7"
  # command to install dependencies
 install:
+    - pip install codecov
     - pip install -r requirements.txt
     - pip install .
 # command to run tests
 script:
-    - python test.py 
+    - coverage run test.py
+after_success:
+    - codecov
