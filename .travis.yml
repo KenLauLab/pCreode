@@ -11,4 +11,4 @@ install:
 script:
     - coverage run test.py
 after_success:
-    - codecov
+    - codecov --token=2b8b2285-06b7-48bb-82d9-5487333a90f1
