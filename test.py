@@ -35,6 +35,13 @@ out_graph, out_ids = pcreode.pCreode(
 endstates_ind, down_ind, clust_ids, std_cls = pcreode.find_endstates( pca_reduced_data, density, noise, target, mute=True)
 # pca extremes
 out_graph, out_ids = pcreode.pCreode_pca_extremes( pca_reduced_data, density, noise, target, file_path, num_runs=num_runs, mute=True)
+# rare cell types
+out_graph, out_ids = pcreode.pCreode_rare_cells( pca_reduced_data, density, noise, target, file_path, rare_clusters=[[0,1]], num_runs=num_runs, mute=True)
+# supervised cell types
+out_graph, out_ids = pcreode.pCreode_supervised( pca_reduced_data, density, noise, target, file_path, man_clust=[[0,1],[50,51]], num_runs=num_runs, mute=True)
+# sparse cell types
+out_graph, out_ids = pcreode.pCreode_sparse( pca_reduced_data, density, noise, target, file_path, num_runs=num_runs, mute=True)
+
 
 # score graphs, returns a vector of ranks by similarity
 graph_ranks = pcreode.pCreode_Scoring( data=pca_reduced_data, file_path=file_path, num_graphs=num_runs, mute=True)
