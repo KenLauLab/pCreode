@@ -2,6 +2,9 @@ import numpy as np
 import pandas as pd
 import pcreode
 
+import matplotlib
+matplotlib.use('Agg')
+
 file_nm = "data/synthetic.csv"
 expression = pd.read_csv( file_nm, skiprows=[0])
 
