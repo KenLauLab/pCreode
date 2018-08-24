@@ -8,6 +8,7 @@ matplotlib.use('Agg')
 file_nm = "data/synthetic.csv"
 expression = pd.read_csv( file_nm, skiprows=[0])
 
+# test pca functions
 data_pca = pcreode.PCA( expression)
 data_pca.get_pca()
 
@@ -18,6 +19,8 @@ data_pca.pca_plot_explained_var()
 dens = pcreode.Density( pca_reduced_data)
 best_guess = dens.radius_best_guess()
 density = dens.get_density( radius=best_guess, mute=True)
+best_guess_2 = dens.nearest_neighbor_hist()
+dens.density_hist()
 
 # get downsampling parameters
 noise, target = pcreode.get_thresholds( pca_reduced_data)
