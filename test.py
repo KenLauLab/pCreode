@@ -64,7 +64,7 @@ analysis = pcreode.Analysis(
   noise=noise
 )
 
-analysis.plot_save_graph( seed=0, overlay=expression.iloc[:,1], file_out=file_path, upper_range=3, node_label_size=0)
+#analysis.plot_save_graph( seed=0, overlay=expression.iloc[:,1], file_out=file_path, upper_range=3, node_label_size=0)
 
 
 
