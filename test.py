@@ -64,4 +64,10 @@ analysis = pcreode.Analysis(
   noise=noise
 )
 
+analysis.plot_save_graph( seed=0, overlay=expression["X"], file_out=file_path, upper_range=3, node_label_size=0)
+
+
+
+
+
 print "all good"
