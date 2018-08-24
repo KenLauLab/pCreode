@@ -9,6 +9,7 @@ data_pca = pcreode.PCA( expression)
 data_pca.get_pca()
 
 pca_reduced_data = data_pca.pca_set_components( min( 3, expression.shape[1]))
+data_pca.pca_plot_explained_var()
 
 # calculate density
 dens = pcreode.Density( pca_reduced_data)
