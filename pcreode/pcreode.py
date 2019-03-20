@@ -24,7 +24,7 @@ from sklearn.metrics import pairwise_distances as _pairwise_distances
 from sklearn import preprocessing as _preprocessing
 import os as _os
 from igraph import *
-from functions import *
+from .functions import *
 import matplotlib
 from IPython.display import display, Image
 
@@ -47,13 +47,13 @@ class PCA( object):
         
         #print( 'Cell count = {0}, Gene/protein count = {1}'.format( data.shape[0],data.shape[1])) 
         
-    def get_pca( self):
+    def get_pca( self): #gets a PCA of the data the object was initialized with 
         """
         Principal component analysis of data 
         """
         pca = _PCA()
         self.pca = pca.fit_transform( self._data)
-        self.pca_explained_var = pca.explained_variance_ratio_ * 100
+        self.pca_explained_var = pca.explained_variance_ratio_ * 100 #output a percent of the variance explained within the object defined here
         return
     
     def pca_plot_explained_var( self, figsize=(6,6), xlim=(0,25)):
@@ -69,7 +69,7 @@ class PCA( object):
         ax.set_xlabel( 'PC#')
         ax.set_ylabel( 'Explained Var')
         ax.set_xlim( xlim)
-        ax.plot( range( len( self.pca_explained_var)), self.pca_explained_var, '-o')
+        ax.plot( range( len( self.pca_explained_var)), self.pca_explained_var, '-o') #
         return
     
     def pca_set_components( self, n_components):
@@ -420,13 +420,13 @@ class Analysis( object):
         """
         if not ( isinstance( overlay, np.ndarray)):
             raise TypeError( 'overlay variable must be numpy array')
-        if not ( overlay.dtype.char == 'S'):
+        if not ( overlay.dtype.char == 'U'):
             raise TypeError( 'All elements in overlay variable must be in a string dtype')
         
         # get list of colors to be used for labeling
         colors   = np.array( [])
         cl_names = np.array( [])
-        for name, hex in matplotlib.colors.cnames.iteritems():
+        for name, hex in matplotlib.colors.cnames.items(): #items instead of iteritems
             colors   = np.append(   colors, hex) 
             cl_names = np.append( cl_names, name)
         
