@@ -11,9 +11,10 @@ before_script: # configure a headless display to test plot generation
     - "export DISPLAY=:99.0"
 #    - "sh -e /etc/init.d/xvfb start"
     - sleep 3 # give xvfb some time to start
+services:
+    - xvfb
 # command to run tests
 script:
-    - xvfb-run --server-args="-screen 0 1024x768x24" make test
     - coverage run test.py
 after_success:
     - codecov --token=2b8b2285-06b7-48bb-82d9-5487333a90f1
