@@ -243,7 +243,7 @@ class Analysis( object):
         self.node_graph_indices = np.arange( self.num_nodes)
         
         # read adjacency matrix for graph
-        adj = pd.read_table( self._file_path + 'adj_{}.txt'.format(self._graph_id), sep=" ", header=None)
+        adj = pd.read_csv( self._file_path + 'adj_{}.txt'.format(self._graph_id), sep=" ", header=None)
         # get distance between nodes in graph
         self.dist  = pairwise_distances( self._data[self.node_data_indices,:], self._data[self.node_data_indices,:], n_jobs=1, metric='l2')
         # calculate weighted adjacency matric
