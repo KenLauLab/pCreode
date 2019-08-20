@@ -51,7 +51,7 @@ Note: For Mac users, Cairo may or may not be installed. If you have problems plo
 
 The problem with p-Creode installation on a Windows machine is with the python-igraph package, where there seems to be a bug in the setup.  Hence, additional steps must be taken.
 1.       Install Anaconda
-2.       Download the user compile wheels of 2 packages (download the version as appropriate) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/): 
+2.       Download the user compile wheels of 2 packages (download the version as appropriate to your Python install) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/): 
 
     -       [pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo)
   
