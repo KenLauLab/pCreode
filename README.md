@@ -7,6 +7,11 @@
 
 The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. p-Creode is compatible with Python 2 (2.7) and Python 3.  
 
+Tutorial files:
+[Jupyter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb). 
+
+Example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv).
+
 ### Installation for Mac or Linux
 
 There are three ways to install p-Creode with Mac/Linux operating systems.
