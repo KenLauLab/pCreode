@@ -57,14 +57,12 @@ The problem with p-Creode installation on a Windows machine is with the python-i
     
             pip install python_igraph-0.7.1.post6-cp27-none-win_amd64.whl
     
-3.       
+3. Install pcreode from github      
 
-```python
-git clone git://github.com/KenLauLab/pCreode
-cd pCreode
-sudo pip install .
-```
-
+    -       git clone git://github.com/KenLauLab/pCreode
+    -       cd pCreode
+    -       pip install .
+    
 *** if you are having issues with igraph plotting of graphs please try:
 ```
 conda install -c conda-forge python-igraph
