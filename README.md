@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/KenLauLab/pCreode.svg?branch=master)](https://travis-ci.org/KenLauLab/pCreode)  [![codecov](https://codecov.io/gh/KenLauLab/pCreode/branch/master/graph/badge.svg)](https://codecov.io/gh/KenLauLab/pCreode)   [![PyPI version](https://badge.fury.io/py/pcreode.svg)](https://badge.fury.io/py/pcreode)
 [![Downloads](https://pepy.tech/badge/pcreode)](https://pepy.tech/project/pcreode)
 
-### Please let us know if you run into any issues or have any questions, through the issues page above or by email: charles.a.herring@vanderbilt.edu. 
+### Please let us know if you run into any issues or have any questions, through the issues page above or by email: bob.chen@vanderbilt.edu. 
 
 The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. p-Creode is compatible with Python 2 (2.7) and Python 3.  
 
