@@ -9,9 +9,9 @@ The term creode was coined by C.H. Waddington, combining the Greek words for “
 
 Tutorial files:
 
-[Jupyter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb). 
+[Jupyter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb)
 
-Example [Data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv).
+Example [Data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv)
 
 ### Installation for Mac or Linux
 
