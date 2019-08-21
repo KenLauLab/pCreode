@@ -36,7 +36,7 @@ Homebrew and anaconda install courtesy of Dan Skelly.
 brew install igraph
 git clone git://github.com/KenLauLab/pCreode
 cd pCreode
-conda create -n pcreode python=3.7 numpy pandas matplotlib python-igraph jupyter cython scanpy
+conda create -n pcreode python=3.7 numpy pandas matplotlib python-igraph jupyter cython
 source activate pcreode
 pip install .
 ```
