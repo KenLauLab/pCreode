@@ -52,7 +52,7 @@ The problem with p-Creode installation on a Windows machine is with the python-i
 
 1. Install Anaconda
 
-2. Download the user compile wheels of 2 packages (download the version as appropriate to your Python install) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/), or follow these direct links to the necessary packages:[pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo) and [python-igraph](http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
+2. Download the user compile wheels of 2 packages (download the version as appropriate to your Python install) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/), or follow these direct links to the necessary packages: [pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo) and [python-igraph](http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
 
 3. In Anaconda prompt, go to the directory where the whls are downloaded and install them:  
             
