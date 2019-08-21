@@ -41,15 +41,17 @@ source activate pcreode
 pip install .
 ```
 
-Note: For Mac users, Cairo may or may not be installed. If you have problems plotting, you need to install Cairo. Please follow the instructions in this [link](http://macappstore.org/cairo/).
+### Mac note: 
+For Mac users, Cairo may or may not be installed. If you have problems plotting, you need to install Cairo. Please follow the instructions in this [link](http://macappstore.org/cairo/). 
 
-*** Some Mac users have experienced issues installing igraph, [here](http://igraph.org/python/#pyinstallosx) is a link to instructions for a direct install on a Mac 
+In addition, some Mac users have experienced issues installing igraph, [here](http://igraph.org/python/#pyinstallosx) is a link to instructions for a direct install on a Mac 
 
 ### Installation for Windows
 
 The problem with p-Creode installation on a Windows machine is with the python-igraph package, where there seems to be a bug in the setup.  Hence, additional steps must be taken.
 
 1. Install Anaconda
+
 2. Download the user compile wheels of 2 packages (download the version as appropriate to your Python install) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/), or follow these direct links to the necessary packages:[pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo) and [python-igraph](http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
 
 3. In Anaconda prompt, go to the directory where the whls are downloaded and install them:  
