@@ -1,10 +1,17 @@
 # **p-Creode**
 
-[![Build Status](https://travis-ci.org/KenLauLab/pCreode.svg?branch=master)](https://travis-ci.org/KenLauLab/pCreode)  [![codecov](https://codecov.io/gh/KenLauLab/pCreode/branch/master/graph/badge.svg)](https://codecov.io/gh/KenLauLab/pCreode)   [![PyPI version](https://badge.fury.io/py/pcreode.svg)](https://badge.fury.io/py/pcreode)  
+[![Build Status](https://travis-ci.org/KenLauLab/pCreode.svg?branch=master)](https://travis-ci.org/KenLauLab/pCreode)  [![codecov](https://codecov.io/gh/KenLauLab/pCreode/branch/master/graph/badge.svg)](https://codecov.io/gh/KenLauLab/pCreode)   [![PyPI version](https://badge.fury.io/py/pcreode.svg)](https://badge.fury.io/py/pcreode)
+[![Downloads](https://pepy.tech/badge/pcreode)](https://pepy.tech/project/pcreode)
 
-### Please let us know if you run into any issues or have any questions, through the issues page above or by email: charles.a.herring@vanderbilt.edu. 
+### Please let us know if you run into any issues or have any questions, through the issues page above or by email: bob.chen@vanderbilt.edu. 
 
-The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. p-Creode was developed using Python2.7 if you are not using this version see below for instructions on how to install a Python2.7 kernel.  
+The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. p-Creode is compatible with Python 2 (2.7) and Python 3.  
+
+Tutorial files:
+
+[Jupyter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb)
+
+Example [Data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv)
 
 ### Installation for Mac or Linux
 
@@ -43,31 +50,35 @@ Note: For Mac users, Cairo may or may not be installed. If you have problems plo
 ### Installation for Windows
 
 The problem with p-Creode installation on a Windows machine is with the python-igraph package, where there seems to be a bug in the setup.  Hence, additional steps must be taken.
-1.       Install Anaconda version 2.7
-2.       Download the user compile wheels of 2 packages (download the bit version as appropriate) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/): 
+1.       Install Anaconda
+2.       Download the user compile wheels of 2 packages (download the version as appropriate to your Python install) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/): 
 
     -       [pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo)
   
             For example, in Anaconda prompt, go to the directory where the whl is downloaded and:  
    
-            pip install pycairo-1.13.2-cp27-cp27m-win_amd64.whl
+            pip install pycairo‑1.18.1‑cp37‑cp37m‑win_amd64.whl
             
     -       [python-igraph](http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
     
-            pip install python_igraph-0.7.1.post6-cp27-none-win_amd64.whl
+            pip install python_igraph‑0.7.1.post6‑cp37‑cp37m‑win_amd64.whl
     
-3.       pip install pcreode
+3. Install pcreode from github      
+
+```
+git clone git://github.com/KenLauLab/pCreode
+cd pCreode
+pip install .
+```
 
 *** if you are having issues with igraph plotting of graphs please try:
 ```
 conda install -c conda-forge python-igraph
 ```
 
-You will still need to manually download the [juypter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above to be able to run the tutorial.
+You will still need to manually download the [jupyter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb) and example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs.csv) from the folders above to be able to run the tutorial.
 
 ## Tutorial
-
-*** If your Python version is greater than 3.0 you will need to install a Python 2.7 IPython kernel to run jupyter notebooks. Instructions on how to accomplish that can be found [here](https://ipython.readthedocs.io/en/latest/install/kernel_install.html)
 
 Once p-Creode is installed you can access the tutorial by command line (conda environment if using PC) with
 ```python
