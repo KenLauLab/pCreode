@@ -7,7 +7,7 @@
 
 The term creode was coined by C.H. Waddington, combining the Greek words for “necessary” and “path” to describe the cell state transitional trajectories that define cell fate specification. Our algorithm aims to identify consensus routes from relatively noisy single-cell data and thus we named this algorithm p- (putative) Creode. Conceptually, p-Creode determines the geometric shape of a collection of dense data points (i.e., a data cloud) in order to reveal the underlying structure of transitional routes. p-Creode is compatible with Python 2 (2.7) and Python 3 (3.7).  
 
-Tutorial files:[Jupyter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb)
+Tutorial files: [Jupyter notebook](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial.ipynb)
 
 Example: [Data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_Raw_Normalized_Transformed.h5ad)
 
@@ -50,10 +50,7 @@ Note: For Mac users, Cairo may or may not be installed. If you have problems plo
 The problem with p-Creode installation on a Windows machine is with the python-igraph package, where there seems to be a bug in the setup.  Hence, additional steps must be taken.
 
 1. Install Anaconda
-2. Download the user compile wheels of 2 packages (download the version as appropriate to your Python install) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
-
-[pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo)
-[python-igraph](http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
+2. Download the user compile wheels of 2 packages (download the version as appropriate to your Python install) from this [link](http://www.lfd.uci.edu/~gohlke/pythonlibs/), or follow these direct links to the necessary packages:[pyCairo](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo) and [python-igraph](http://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph)
 
 3. In Anaconda prompt, go to the directory where the whls are downloaded and install them:  
             
