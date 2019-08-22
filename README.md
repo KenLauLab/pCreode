@@ -82,7 +82,7 @@ You will still need to manually download the [jupyter notebook](https://github.c
 Please note that our tutorial for pCreode requires Scanpy for its plotting and preprocessing steps. Scanpy, described by [Wolf et al., 2018](https://doi.org/10.1186/s13059-017-1382-0), is a python package for the organization and analysis of large scale scRNA-seq data. Scanpy documentation is available [here](https://scanpy.readthedocs.io/en/stable/). Install scanpy with the following command:
 
 ```python
-sudo pip install scanpy
+pip install scanpy
 ```
 
 Once p-Creode is installed you can access the tutorial by command line (conda environment if using PC) with:
@@ -91,3 +91,7 @@ Once p-Creode is installed you can access the tutorial by command line (conda en
 jupyter notebook
 ```
 The downloaded p-Creode tutorial can be opened by using the jupyter interface to find the directory where it was saved. A brief introduction to jupyter notebook can be found [here](https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook#gs.P04bH=8).
+
+## Python 2 support and tutorial 
+
+pCreode can be run in python 2 as well, please see the python 2 version of the [tutorial](https://github.com/KenLauLab/pCreode/blob/master/notebooks/pCreode_tutorial_python_2.ipynb) and its example [data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_with_IDs_python_2.csv.gz)
