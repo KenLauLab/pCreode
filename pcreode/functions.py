@@ -484,8 +484,8 @@ def pCreode_Scoring( data, file_path, num_graphs, mute=False):
             ind_1  = np.genfromtxt( file_path + 'ind_{}.csv'.format( zz), delimiter=',').astype( int)
             ind_2  = np.genfromtxt( file_path + 'ind_{}.csv'.format( kk), delimiter=',').astype( int)
             # read adjacency matrix for graphs 
-            adj_1  = pd.read_table( file_path + 'adj_{}.txt'.format( zz), sep=" ", header=None).values
-            adj_2  = pd.read_table( file_path + 'adj_{}.txt'.format( kk), sep=" ", header=None).values
+            adj_1  = pd.read_csv( file_path + 'adj_{}.txt'.format( zz), sep=" ", header=None).values
+            adj_2  = pd.read_csv( file_path + 'adj_{}.txt'.format( kk), sep=" ", header=None).values
             # get euclidean distance between nodes in each graph to create weights in graph
             dist_1a = pairwise_distances( data[ind_1,:], data[ind_1,:], n_jobs=1, metric='l2')
             dist_2a = pairwise_distances( data[ind_2,:], data[ind_2,:], n_jobs=1, metric='l2')
@@ -926,7 +926,7 @@ def return_weighted_adj( data, file_path, graph_id):
     # read in arrays for indices for two graphs, in terms of original dataset
     ind_1  = np.genfromtxt( file_path + 'ind_{}.csv'.format( graph_id), delimiter=',').astype( int)
     # read adjacency matrix for graphs 
-    adj_1  = pd.read_table( file_path + 'adj_{}.txt'.format( graph_id), sep=" ", header=None).values
+    adj_1  = pd.read_csv( file_path + 'adj_{}.txt'.format( graph_id), sep=" ", header=None).values
     # get euclidean distance between nodes in each graph to create weights in graph
     dist_1a = pairwise_distances( data[ind_1,:], data[ind_1,:], n_jobs=1, metric='l2')
     # create weighted adjacency matrix for graphs, 
