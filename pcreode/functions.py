@@ -1644,7 +1644,7 @@ def pCreode_extended_trajectories( data, density, noise, target, file_path, num_
             sil_score[ss] = metrics.silhouette_score( low_cls, labels=label, metric='l2')
 
         # find most likely number of clusters from scores above and scale by clust_fact
-        num_clusters = ( np.argmax( sil_score) + 2) * clust_scaler
+        num_clusters = ( np.argmax( sil_score) + 2) * int( clust_scaler)
         clust_model  = _KMeans( n_clusters=num_clusters, random_state=10).fit( low_cls)
         label        = clust_model.labels_
         print( "Number of endstates found -> {0}".format( num_clusters))
