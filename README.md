@@ -11,6 +11,19 @@ Tutorial files: [Jupyter notebook](https://github.com/KenLauLab/pCreode/blob/mas
 
 Example: [Data file](https://github.com/KenLauLab/pCreode/blob/master/data/Myeloid_Raw_Normalized_Transformed.h5ad)
 
+### Algorithm Overview
+
+The p-Creode algorithm is composed of six distinct steps, as outlined beginning on page 16 of [Unsupervised trajectory analysis of single-cell RNA-seq and imaging data reveals alternate tuft cell origins in the gut](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5799016/).
+These six steps are as follows:
+1. Down-sampling (density-dependent down-sampling for rare and overrepresented cell state normalization)
+2. Graph construction (density based [_k_-nearest neighbor](https://en.wikipedia.org/wiki/Nearest_neighbor_graph))
+3. End-state identification ([closeness centrality](https://en.wikipedia.org/wiki/Closeness_centrality), derived from the _k_-nearest neighbor graph)
+4. Topology reconstruction using hierarchical placements (places data points on branches to allow the depiction of ancestral relationships)
+5. Consensus alignment (reassigns locations of path nodes in the topology to more accurately reflect paths observed in the data)
+6. Scoring (compares the constructed topologies based on dissimilarity to produce a p-Creode score)
+
+Current p-Creode methodology entails running steps one through five 100 times and then running step 6 one time. Each of the six steps can be found within the [_functions.py_](https://github.com/KenLauLab/pCreode/blob/master/pcreode/functions.py) file.
+
 ### Installation for Mac or Linux
 
 There are three ways to install p-Creode with Mac/Linux operating systems.
