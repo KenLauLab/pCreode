@@ -285,7 +285,7 @@ class Analysis( object):
 
         self.graph.vs["color"] = [cl_vals_1[kk] for kk in range( self.num_nodes)]
         random.seed( seed)
-        layout = self.graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
+        layout = self.graph.layout_kamada_kawai( maxiter=2000)
         
         plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(1200,1200), 
                     vertex_size=dens, edge_width=2, vertex_label_size=node_label_size)
@@ -455,7 +455,7 @@ class Analysis( object):
         self.graph.vs["color"] = [colors[kk] for kk in ids_ana]
         
         random.seed( seed)
-        layout = self.graph.layout_kamada_kawai( maxiter=2000, sigma=1000.0)
+        layout = self.graph.layout_kamada_kawai( maxiter=2000)
         
         plot( self.graph, self._file_path + '{0}.png'.format(file_out), layout=layout, bbox=(1200,1200), 
                      vertex_size=dens, edge_width=2, vertex_label_size=0)
