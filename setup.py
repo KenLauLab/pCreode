@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup( name='pcreode',
-       version='2.2.1',
+       version='2.2.2',
        description='p-Creode algorithm for mapping state transitions',
        url='https://github.com/KenLauLab/pCreode',
        author='Chuck Herring',
@@ -15,7 +15,6 @@ setup( name='pcreode',
            'matplotlib',
            'sklearn',
            'jgraph',
-
            'jupyter',
            'nvr',
            'cairocffi',

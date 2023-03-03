@@ -4,4 +4,4 @@ from .pcreode import *
 
 #also had to remove the "from functions import *" from pcreode.py
 
-__version__ = "2.2.1"
+__version__ = "2.2.2"
